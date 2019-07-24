@@ -1,27 +1,33 @@
 setClass("mod",
          representation = representation(x="numeric"),
-         prototype      = list(x=numeric(),positive=logical()),
-         contains       = "swift"
+         contains       = "numeric",
+         prototype      = numeric()
          )
 
-".mod.valid" <- function(object){
-  if(any(object@x != round(object@x))){
-    return("non integer")
-  } else {
-    return(TRUE)
-  }
-}
-
-setValidity("mod", .mod.valid)
+setValidity("mod", 
+            function(object){
+              if(is.na(modulo())){
+                return("working modulus not defined.  Type something like 'modulo(7)' to work modulo 7 to get started")
+              } else if(any(object@x != round(object@x))){
+                return("non integer")
+              } else if(any(object@x<0)){
+                return("negative elements")
+              } else if(any(object@x >= getOption("M"))){
+                return("elements > Modulus")
+              } else {
+                return(TRUE)
+              }
+            }
+            )
 
 "mod" <- function(x=integer()){
-  new("mod",x=as.integer(x))
+  new("mod",x=as.integer(`%%`(as.integer(x),modulo())))
 }
 
 "is.mod" <- function(x){is(x,"mod")}
 
-
 "as.mod" <- function(x){
+
   if(is.mod(x)){
     return(x)
     } else {
@@ -36,25 +42,23 @@ setAs("mod", "numeric", function(from){
 setMethod("as.numeric",signature(x="mod"),function(x){as(x,"integer")})
 
 ".mod.print" <- function(x){
-  print(x)
-  print("modulo DSFADFSFADSASDF")
-   }
+  x@x
+}
     
 "print.mod" <- function(x, ...){
   jj <- .mod.print(x, ...)
   print(jj)
+  cat(paste("Z/",modulo(),"Z\n",sep=""))
   return(invisible(jj))
 }
 
 setMethod("show", "mod", function(object){print.mod(object)})
 
-
-
 setGeneric(".cPair", function(x,y){standardGeneric(".cPair")})
-setMethod(".cPair", c("mod", "mod"), function(x,y){.Mod.cPair(x,y)})
-setMethod(".cPair", c("mod", "ANY"),  function(x,y){.Mod.cPair(x,as.mod(y))})
-setMethod(".cPair", c("ANY", "mod"),  function(x,y){.Mod.cPair(as.mod(x),y)})
-setMethod(".cPair", c("ANY", "ANY"),   function(x,y){c(x,y)})
+setMethod(".cPair", c("mod", "mod"), function(x,y){.mod.cPair(x,y)})
+setMethod(".cPair", c("mod", "ANY"), function(x,y){.mod.cPair(x,as.mod(y))})
+setMethod(".cPair", c("ANY", "mod"), function(x,y){.mod.cPair(as.mod(x),y)})
+setMethod(".cPair", c("ANY", "ANY"), function(x,y){c(x,y)})
 
 "cmod" <- function(x, ...) {
    if(nargs()<3)
@@ -74,24 +78,19 @@ setMethod("sqrt",",mod", function(x){
 } )
           
 setMethod("Math", "mod",
-          function(x){
-            switch(.Generic,
-                   abs    = mod(x@x),
-                   stop(paste(.Generic, "not allowed on mod objects"))
-                     )
-          } )
+          function(x){stop(paste(.Generic, "not allowed on mod objects"))}
+          )
 
 ".mod.negative" <- function(e1){
-  stop("not yet implemented")
+  as.mod(-e1@x)
 }
 
-
 ".mod.add" <- function(e1,e2){
-  stop("not yet implemented")
+  as.mod(e1@x + e2@x)
 }
 
 ".mod.mult" <- function(e1,e2){
-  stop("not yet implemented")
+  as.mod(e1@x * e2@x)
 }
 
 ".mod.power"<- function(e1,e2){
@@ -130,7 +129,7 @@ setMethod("Arith", signature(e1 = "mod", e2="mod"), .mod.arith)
 }
 
 ".mod.greater" <- function(e1,e2){
-  stop("meaningless")
+  stop(paste("Z/",modulo(),"Z is not an ordered set.\n",sep=""))
 }
 
 ".mod.compare" <- function(e1,e2){
@@ -148,19 +147,20 @@ setMethod("Arith", signature(e1 = "mod", e2="mod"), .mod.arith)
          )
 }
 
-setMethod("Compare", signature(e1="mod", e2="ANY" ), .mod.compare)
-setMethod("Compare", signature(e1="ANY" , e2="mod"), .mod.compare)
+setMethod("Compare", signature(e1="mod", e2="ANY"), .mod.compare)
+setMethod("Compare", signature(e1="ANY", e2="mod"), .mod.compare)
 setMethod("Compare", signature(e1="mod", e2="mod"), .mod.compare)
 
 ".mod.logic" <- function(e1,e2){
   stop("No logic currently implemented for mod objects")
 }
 
+## The following lines deal with idiom like mod(1:10) & mod(10:1) [which are meaningless]
 setMethod("Logic",signature(e1="mod",e2="ANY"), .mod.logic)
 setMethod("Logic",signature(e1="ANY",e2="mod"), .mod.logic)
 setMethod("Logic",signature(e1="mod",e2="mod"), .mod.logic)
 
-if(!isGeneric("prod")){
+if(!isGeneric("prod")){   # prod(1:10) returns factorial(10); cf Wilson's theorem
 setGeneric("prod", function(x, ..., na.rm = FALSE)
 	{
 		standardGeneric("prod")
@@ -184,8 +184,8 @@ setGeneric("sum", function(x, ..., na.rm = FALSE)
 	group = "Summary")
 }
 
-".mod.prod" <- function(x){
-  stop("not yet implemented")
+".mod.prod" <- function(x){  
+    stop("not yet implemented")
 }
 
 ".mod.sum" <- function(x){

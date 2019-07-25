@@ -1,48 +1,43 @@
-setClass("mod",
-         representation = representation(x="numeric"),
-         contains       = "numeric",
-         prototype      = numeric()
-         )
+`mod` <- setClass("mod", contains = "integer")
 
 setValidity("mod", 
             function(object){
               if(is.na(modulo())){
                 return("working modulus not defined.  Type something like 'modulo(7)' to work modulo 7 to get started")
-              } else if(any(object@x != round(object@x))){
+              } else if(any(object@.Data != round(object@.Data))){
                 return("non integer")
-              } else if(any(object@x<0)){
+              } else if(any(object@.Data<0)){
                 return("negative elements")
-              } else if(any(object@x >= getOption("M"))){
-                return("elements > Modulus")
+              } else if(any(object@.Data >= getOption("M"))){
+                return("elements should be strictly < Modulus")
               } else {
                 return(TRUE)
               }
             }
             )
 
-"mod" <- function(x=integer()){
-  new("mod",x=as.integer(`%%`(as.integer(x),modulo())))
-}
+setMethod("initialize", "mod", 
+          function(.Object, ...) {
+              .Object <- callNextMethod()
+              .Object
+          }
+          )
+
+setAs(from="numeric",to="mod",def=function(from){mod(as.integer(round(from)) %% modulo())})
+setAs(from="integer",to="mod",def=function(from){mod(from %% modulo())})
 
 "is.mod" <- function(x){is(x,"mod")}
 
-"as.mod" <- function(x){
-
-  if(is.mod(x)){
-    return(x)
-    } else {
-    return(mod(round(x)))
-  }
-}
+"as.mod" <- function(x){ return(as(x,"mod"))}
 
 setAs("mod", "numeric", function(from){
-  return(from@x)
+  return(from@.Data)
 } )
 
 setMethod("as.numeric",signature(x="mod"),function(x){as(x,"integer")})
 
 ".mod.print" <- function(x){
-  x@x
+  x@.Data
 }
     
 "print.mod" <- function(x, ...){

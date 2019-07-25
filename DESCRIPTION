@@ -1,4 +1,4 @@
-Package: modulo
+Package: clock
 Type: Package
 Title: Modular Arithmetic in in R
 Version: 0.0-1

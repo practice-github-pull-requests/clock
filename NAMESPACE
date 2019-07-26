@@ -3,4 +3,6 @@ exportPattern("^[[:alpha:]]+")
 importFrom("numbers","eulersPhi")
 importFrom("numbers","isPrime")
 
+ importFrom("methods", "as", "callNextMethod", "is", "new")
+
 

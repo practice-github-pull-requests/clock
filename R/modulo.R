@@ -3,8 +3,9 @@
 setValidity("mod", 
             function(object){
               x <- as.numeric(object)
-              if(is.na(modulo())){
-                return("working modulus not defined.  Type something like 'modulo(7)' to work modulo 7 to get started")
+              x <- x[!is.na(x)]  # NA or NaN entries are fine
+              if(is.na(modulus())){
+                return("working modulus not defined.  Type something like 'modulus(7)' to work modulo 7 to get started")
               } else if(any(x != round(x))){
                 return("non integer")
               } else if(any(x<0)){
@@ -24,10 +25,9 @@ setMethod("initialize", "mod",
           }
           )
 
-
-setAs(from="mod"    , to="numeric", function(from){  return(from@.Data)})  # No occurences of '@' below here.
-setAs(from="numeric",to="mod",def=function(from){mod(as.integer(round(from)) %% modulo())})
-setAs(from="integer",to="mod",def=function(from){mod(from %% modulo())})
+setAs(from="mod"    ,to="numeric", function(from){  return(from@.Data)})  # No occurences of '@' below here.
+setAs(from="numeric",to="mod",def=function(from){mod(as.integer(round(from)) %% modulus())})
+setAs(from="integer",to="mod",def=function(from){mod(from %% modulus())})
 
 setMethod("as.numeric",signature(x="mod"),function(x){as(x,"integer")})
 
@@ -39,7 +39,7 @@ setMethod("as.numeric",signature(x="mod"),function(x){as(x,"integer")})
 "print.mod" <- function(x, ...){
   jj <- .mod.print(x, ...)
   print(jj)
-  cat(paste("members of Z/",modulo(),"Z\n",sep=""))
+  cat(paste("members of Z/",modulus(),"Z\n",sep=""))
   return(invisible(jj))
 }
 
@@ -73,10 +73,38 @@ setMethod("Math", "mod",
           )
 
 ".mod.negative" <- function(e1){ as.mod(-as.numeric(e1)) }
+"mod.inverse" <- function(e1){
+    stopifnot(is.mod(e1))
+    stopifnot(numbers::isPrime(modulus()))
+    e1 <- as.numeric(e1)
+    e1[e1==0] <- NA
+    as.mod(e1^(modulus()-2))
+}
 ".mod.add" <- function(e1,e2){ as.mod(as.numeric(e1) + as.numeric(e2)) }
 ".mod.mult" <- function(e1,e2){ as.mod(as.numeric(e1)*as.numeric(e2)) }
-".mod.power"<- function(e1,e2){ stop("powers not yet implemented") }
-".mod.inverse" <- function(b){  stop("not yet implemented")}
+".mod.power"<- function(e1,e2){
+    a <- as.numeric(e1)
+    if(is.mod(e2)){stop(paste("a^p not defined for p a member of Z/",mod(),sep=""))}
+    p <- e2    # notionally calculating a^p
+    # notionally calculating a^p
+
+    jj <- cbind(seq_along(a),seq_along(p))  # handles vectorization
+    a <- a[jj[,1]]
+    p <- p[jj[,2]]
+    
+    phi <- getOption("phi")
+    negs <- which(p<0)
+    if(any(negs)){
+        p <- abs(p)
+        a[negs] <- as.numeric(mod.inverse(as.mod(a[negs])))
+    }
+    return(as.mod(a^(p%%phi)))
+}
+
+".mod.quotient" <- function(e1,e2){
+    stopifnot(is.mod(e2))
+    as.mod(as.numeric(e1)*as.numeric(mod.inverse(e2)))
+}
 
 setMethod("Arith",signature(e1 = "mod", e2="missing"),
           function(e1,e2){
@@ -93,7 +121,7 @@ setMethod("Arith",signature(e1 = "mod", e2="missing"),
          "+" = .mod.add  (e1, e2),
          "-" = .mod.add  (e1, .mod.negative(as.mod(e2))),
          "*" = .mod.mult (e1, e2),
-         "/" = .mod.mult (e1, .mod.inverse(as.mod(e2))),
+         "/" = .mod.quotient(e1,e2),
          "^" = .mod.power(e1, e2),
          stop(paste("binary operator \"", .Generic, "\" not defined for mod objects"))
          ) }
@@ -106,7 +134,7 @@ setMethod("Arith", signature(e1 = "mod", e2="mod"), .mod.arith)
 ".mod.equal" <- function(e1,e2){ as.numeric(e1) == as.numeric(e2) }
 
 ".mod.greater" <- function(e1,e2){
-  stop(paste("Z/",modulo(),"Z is not an ordered set.\n",sep=""))
+  stop(paste("Z/",modulus(),"Z is not an ordered set.\n",sep=""))
 }
 
 ".mod.compare" <- function(e1,e2){

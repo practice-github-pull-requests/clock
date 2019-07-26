@@ -1,3 +1,6 @@
 exportPattern("^[[:alpha:]]+")
 
 importFrom("numbers","eulersPhi")
+importFrom("numbers","isPrime")
+
+

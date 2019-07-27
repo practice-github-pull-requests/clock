@@ -32,19 +32,18 @@ Mod classes
 }
 \section{Objects from the Class}{
 Objects can be created by calls of the form \code{mod(...)}.
-%%  ~~ describe objects here ~~ 
 }
 \section{Slots}{
   \describe{
-    \item{\code{.Data}:}{Object of class \code{"integer"} ~~ }
+    \item{\code{.Data}:}{Object of class \code{"integer"}  }
   }
 }
 \section{Extends}{
-Class \code{"\linkS4class{integer}"}, from data part.
-Class \code{"\linkS4class{numeric}"}, directly, with explicit coerce.
-Class \code{"\linkS4class{double}"}, by class "integer", distance 2, with explicit coerce.
-Class \code{"\linkS4class{vector}"}, by class "integer", distance 2.
-Class \code{"\linkS4class{data.frameRowLabels}"}, by class "integer", distance 2.
+Class \code{\linkS4class{integer}}, from data part.
+Class \code{\linkS4class{numeric}}, directly, with explicit coerce.
+Class \code{\linkS4class{double}}, by class \code{\linkS4class{integer}}, distance 2, with explicit coerce.
+Class \code{\linkS4class{vector}}, by class \code{\linkS4class{integer}}, distance 2.
+Class \code{\linkS4class{data.frameRowLabels}}, by class \code{\linkS4class{integer}}, distance 2.
 }
 \section{Methods}{
   \describe{

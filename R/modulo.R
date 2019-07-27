@@ -85,7 +85,7 @@ setMethod("Math", "clock",
 ".clock.mult" <- function(e1,e2){ as.mod(as.numeric(e1)*as.numeric(e2)) }
 ".clock.power"<- function(e1,e2){
     a <- as.numeric(e1)
-    if(is.mod(e2)){stop(paste("a^p not defined for p a member of Z/",mod(),sep=""))}
+    if(is.mod(e2)){stop(paste("a^p not defined for p a member of Z/",modulus(),sep=""))}
     p <- e2    # notionally calculating a^p
     # notionally calculating a^p
 

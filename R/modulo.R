@@ -206,4 +206,17 @@ setMethod("Summary", "clock",
           }
           )
 
+setMethod("[", "clock",
+          function(x, i, j,  drop){
+            if(!missing(j)){
+              warning("second argument to extractor function ignored")
+            }
+            as.mod(as.numeric(x)[i])
+          } )
 
+setReplaceMethod("[",signature(x="clock"),
+                 function(x,i,j,value){
+                     out <- as.numeric(x)
+                     out[i] <- value
+                     return(as.mod(out))
+                 } )

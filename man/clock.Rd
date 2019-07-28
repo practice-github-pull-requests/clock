@@ -6,6 +6,8 @@
 \alias{.cPair,ANY,clock-method}
 \alias{.cPair,clock,ANY-method}
 \alias{.cPair,clock,clock-method}
+\alias{[,clock-method}
+\alias{[<-,clock-method}
 \alias{Arith,ANY,clock-method}
 \alias{Arith,clock,ANY-method}
 \alias{Arith,clock,missing-method}
@@ -31,27 +33,34 @@
 The \code{clock} class of objects.
 }
 \section{Objects from the Class}{
-Objects can be created by calls of the form \code{clock(...)}, but this is
-not very user-friendly: the validation test is stringent. and one should use \code{as.mod()} in day-to-day
-use. 
+Objects can be created by calls of the form \code{clock(...)}, but
+this is not very user-friendly: the validation test is stringent. and
+one should use \code{as.mod()} in day-to-day use.
 }
 \section{Slots}{
   \describe{
-    \item{\code{.Data}:}{Object of class \code{"integer"}  }
+    \item{\code{.Data}:}{Object of class \code{integer}  }
   }
 }
 \section{Extends}{
-Class \code{\linkS4class{integer}}, from data part.
-Class \code{\linkS4class{numeric}}, directly, with explicit coerce.
-Class \code{\linkS4class{double}}, by class \code{\linkS4class{integer}}, distance 2, with explicit coerce.
-Class \code{\linkS4class{vector}}, by class \code{\linkS4class{integer}}, distance 2.
-Class \code{\linkS4class{data.frameRowLabels}}, by class \code{\linkS4class{integer}}, distance 2.
+  \itemize{
+\item Class \code{\linkS4class{integer}}, from data part.
+\item Class \code{\linkS4class{numeric}}, directly, with explicit coerce.
+\item Class \code{\linkS4class{double}}, by class
+\code{\linkS4class{integer}}, distance 2, with explicit coerce.
+\item Class \code{\linkS4class{vector}}, by class
+\code{\linkS4class{integer}}, distance 2.
+\item Class \code{\linkS4class{data.frameRowLabels}}, by class
+\code{\linkS4class{integer}}, distance 2.
+}
 }
 \section{Methods}{
   \describe{
     \item{.cPair}{\code{signature(x = "ANY", y = "clock")}: ... }
     \item{.cPair}{\code{signature(x = "clock", y = "ANY")}: ... }
     \item{.cPair}{\code{signature(x = "clock", y = "clock")}: ... }
+    \item{[}{\code{signature(x = "clock")}: ... }
+    \item{[<-}{\code{signature(x = "clock")}: ... }
     \item{Arith}{\code{signature(e1 = "ANY", e2 = "clock")}: ... }
     \item{Arith}{\code{signature(e1 = "clock", e2 = "ANY")}: ... }
     \item{Arith}{\code{signature(e1 = "clock", e2 = "missing")}: ... }

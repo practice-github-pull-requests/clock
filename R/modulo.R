@@ -65,10 +65,6 @@ setMethod(".cPair", c("ANY", "ANY"), function(x,y){c(x,y)})
   mod(c(as.numeric(x),as.numeric(y)))
 }
 
-setMethod("sqrt","clock", function(x){
-  stop("not yet implemented; need Legendre symbols")
-} )
-          
 setMethod("Math", "clock",
           function(x){stop(paste(.Generic, "not allowed on clock objects"))}
           )

@@ -10,11 +10,13 @@ modulus(n)
 }
 \details{
 
-The typical work-flow for the package is to define a modulus and work in
-this modulus for an extended period of time.  It is not expected that
-users will change the working modulus very frequently.  Indeed, doing so
-may result in \emph{interwoven alignment preambles are not allowed}
-errors.
+  The \emph{sine qua non} for modular arithmetic is having a modulus to
+work to.  The first thing to do is to set the modulus with function
+\code{modulus()}.  The typical work-flow for the package is to define a
+modulus and work in this modulus for an extended period of time.  It is
+not expected that users will change the working modulus very frequently.
+Indeed, doing so may result in \emph{interwoven alignment preambles are
+not allowed} errors.
 
 The package can deal with a non-prime modulus but then division is not
 defined.

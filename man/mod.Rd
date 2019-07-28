@@ -27,6 +27,6 @@ an object being of class \code{clock}.
 \seealso{\code{\link{clock}}}
 \examples{
 
-modulo(11)
+modulus(11)
 as.mod(10)^100  # A googol, modulo 11
 }

@@ -73,7 +73,7 @@ setMethod("Math", "clock",
           function(x){stop(paste(.Generic, "not allowed on clock objects"))}
           )
 
-".clock.negative" <- function(e1){ as.clock(-as.numeric(e1)) }
+".clock.negative" <- function(e1){ as.mod(-as.numeric(e1)) }
 "clock.inverse" <- function(e1){
     stopifnot(is.mod(e1))
     stopifnot(numbers::isPrime(modulus()))

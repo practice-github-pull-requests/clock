@@ -6,8 +6,6 @@
 \alias{.cPair,ANY,clock-method}
 \alias{.cPair,clock,ANY-method}
 \alias{.cPair,clock,clock-method}
-\alias{[,clock-method}
-\alias{[<-,clock-method}
 \alias{Arith,ANY,clock-method}
 \alias{Arith,clock,ANY-method}
 \alias{Arith,clock,missing-method}

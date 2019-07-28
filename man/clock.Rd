@@ -6,11 +6,6 @@
 \alias{.cPair,ANY,clock-method}
 \alias{.cPair,clock,ANY-method}
 \alias{.cPair,clock,clock-method}
-\alias{Arith,ANY,clock-method}
-\alias{Arith,clock,ANY-method}
-\alias{Arith,clock,missing-method}
-\alias{Arith,clock,clock-method}
-\alias{as.numeric,clock-method}
 \alias{coerce,integer,clock-method}
 \alias{coerce,clock,numeric-method}
 \alias{coerce,numeric,clock-method}
@@ -23,7 +18,6 @@
 \alias{Logic,clock,ANY-method}
 \alias{Logic,clock,clock-method}
 \alias{Math,clock-method}
-\alias{show,clock-method}
 \alias{Summary,clock-method}
 
 \title{Class \code{"clock"}}
@@ -59,10 +53,6 @@ one should use \code{as.mod()} in day-to-day use.
     \item{.cPair}{\code{signature(x = "clock", y = "clock")}: ... }
     \item{[}{\code{signature(x = "clock")}: ... }
     \item{[<-}{\code{signature(x = "clock")}: ... }
-    \item{Arith}{\code{signature(e1 = "ANY", e2 = "clock")}: ... }
-    \item{Arith}{\code{signature(e1 = "clock", e2 = "ANY")}: ... }
-    \item{Arith}{\code{signature(e1 = "clock", e2 = "missing")}: ... }
-    \item{Arith}{\code{signature(e1 = "clock", e2 = "clock")}: ... }
     \item{as.numeric}{\code{signature(x = "clock")}: ... }
     \item{coerce}{\code{signature(from = "integer", to = "clock")}: ... }
     \item{coerce}{\code{signature(from = "clock", to = "numeric")}: ... }

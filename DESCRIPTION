@@ -10,4 +10,5 @@ Description: Modular arithmetic in R.  Uses efficient routines for
 	     working in a particular modulo base.
 License: GPL
 Repository: CRAN
-URL: https://github.com/RobinHankin/modulo.git
+URL: https://github.com/RobinHankin/clock.git
+BugReports: https://github.com/RobinHankin/clock/issues

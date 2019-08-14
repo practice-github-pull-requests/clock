@@ -186,11 +186,11 @@ setGeneric("sum", function(x, ..., na.rm = FALSE)
 	group = "Summary")
 }
 
-".clock.prod" <- function(x){  
+`.clock.prod` <- function(x){  
     stop("not yet implemented")
 }
 
-".clock.sum" <- function(x){ mod(as.numeric(x)) }
+`.clock.sum` <- function(x){ mod(as.numeric(x)) }
 
 setMethod("Summary", "clock",
           function(x, ..., na.rm=FALSE){

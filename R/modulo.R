@@ -18,14 +18,14 @@ setValidity("clock",   #S4 setmethods used here
               }
             }
             )
-
-setMethod("initialize", "clock", 
+)543
+setMethod("initialize", "clock", # firther work on docs
           function(.Object, ...) {
               .Object <- callNextMethod()
               .Object
           }
           )
-
+# new lines here for R code
 setAs(from="numeric",to="clock",def=function(from){clock(as.integer(round(from)) %% modulus())})
 setAs(from="integer",to="clock",def=function(from){clock(from %% modulus())})
 

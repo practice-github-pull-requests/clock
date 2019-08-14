@@ -1,7 +1,7 @@
 `clock` <- setClass("clock", contains = "integer")
 setAs(from="clock"  ,to="numeric", function(from){  return(from@.Data)})  # No occurences of '@' below here.
 
-setValidity("clock", 
+setValidity("clock",   #S4 setmethods used here
             function(object){
               x <- as.numeric(object)
               x <- x[!is.na(x)]  # NA or NaN entries are fine

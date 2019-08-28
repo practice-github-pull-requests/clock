@@ -5,7 +5,7 @@ importFrom("numbers","isPrime")
 
 importFrom("methods", "as", "callNextMethod", "is", "new")
 
-S3method("print","clock")
+S3method(print,"clock")
 
 
 

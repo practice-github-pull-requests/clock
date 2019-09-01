@@ -20,6 +20,8 @@
 \examples{
 modulus(13)
 as.mod(11)^(1:10)
+as.mod(11)^(1:10)
 
+as.mod(10)^100 # a googol, modulo 13
 }
 \keyword{math}

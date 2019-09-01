@@ -3,6 +3,9 @@
 \docType{class}
 \alias{clock-class}
 \alias{clock}
+\alias{clocky}
+\alias{clocksome}
+\alias{clock_arithmetic}
 \alias{.cPair,ANY,clock-method}
 \alias{.cPair,clock,ANY-method}
 \alias{.cPair,clock,clock-method}

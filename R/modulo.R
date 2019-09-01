@@ -1,5 +1,5 @@
 `clock` <- setClass("clock", contains = "integer")
-setAs(from="clock"  ,to="numeric", function(from){  return(from@.Data)})  # No occurences of '@' below here.
+setAs(from="clock"  ,to="numeric", function(from){  return(from@.Data)})  # There are no occurences of '@' below here.
 
 setValidity("clock",   #S4 setmethods used here
             function(object){

@@ -1,5 +1,5 @@
-`modulus` <- function(n){   # workflow modelled on sol() in the lorentz() package
-    if(missing(n)){  # Empty argument returns modulus, just like in the lorentz package sol() returns speed of light
+`modulus` <- function(n){ # Workflow modelled on sol() in the lorentz() package
+    if(missing(n)){ # An empty argument returns the working modulus, just like in the lorentz package sol() returns speed of light
         return(getOption("M"))
     } else {  # working modulus supplied
         

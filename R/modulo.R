@@ -33,7 +33,7 @@ setMethod("as.numeric",signature(x="clock"),function(x){as(x,"integer")})
 
 `is.mod` <- function(x){is(x,"clock")}
 `mod`    <- function(x){ return(as(x,"clock"))}
-"as.mod"    <- function(x){ return(as(x,"clock"))}
+`as.mod`    <- function(x){ return(as(x,"clock"))}
 
 ".clock.print" <- function(x){ as.numeric(x) }
     

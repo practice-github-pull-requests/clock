@@ -20,7 +20,7 @@ cclock(x, ...)
   repeatedly.  Function \code{.cPair()} uses S4 method dispatch to call
   \code{.clock.cpair()}.}
 
-\author{Robin K. S. Hankin; original idea due to John Chambers}
+\author{Robin K. S. Hankin; original idea due to John Chambers and R-core}
 \note{
   The structure is copied from the \pkg{Brobdingnag} package, where
   there is some discussion under \code{cbrob.Rd}.
